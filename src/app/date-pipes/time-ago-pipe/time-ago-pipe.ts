@@ -1,15 +1,17 @@
 // time ago pipe
 
 import { Pipe, PipeTransform, OnDestroy } from '@angular/core';
+//
+// import 'rxjs/add/observable/interval';
+// import 'rxjs/add/operator/startWith';
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/startWith';
 
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 import { DatePipeManager, AgoPipeOptions } from '../providers/date-pipe-manager';
+import {interval, Observable, Subscription} from "rxjs";
+import {startWith} from "rxjs/operators";
+import {parseISO} from "date-fns";
+import {distanceInWordsToNow} from "../helper-functions";
 
 @Pipe({name: 'ago', pure: false})
 export class TimeAgoPipe implements PipeTransform, OnDestroy {
@@ -21,7 +23,7 @@ export class TimeAgoPipe implements PipeTransform, OnDestroy {
 
     constructor(manager: DatePipeManager) {
         this.options = manager.getAgoPipeOptions();
-        this.refresher = Observable.interval(this.options.refreshRate).startWith(0).subscribe(_ => this.refreshNow = true);
+        this.refresher = interval(this.options.refreshRate).pipe(startWith(0)).subscribe(_ => this.refreshNow = true);
     }
 
     ngOnDestroy() {

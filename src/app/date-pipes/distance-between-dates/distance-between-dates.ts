@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
-import { isValidInput } from '../helper-functions';
+import {distanceInWords, isValidInput} from '../helper-functions';
 import { DatePipeManager } from '../providers/date-pipe-manager';
 
 /**

@@ -28,7 +28,7 @@ import { DatePipeManager, DATE_PIPE_CONFIGURATION_TOKEN, DatePipeConfiguration }
     ]
 })
 export class DatePipesModule {
-    static forRoot(config?: DatePipeConfiguration): ModuleWithProviders {
+    static forRoot(config?: DatePipeConfiguration): ModuleWithProviders <DatePipesModule> {
         return {
             ngModule: DatePipesModule,
             providers: [{provide: DATE_PIPE_CONFIGURATION_TOKEN, useValue: config}]

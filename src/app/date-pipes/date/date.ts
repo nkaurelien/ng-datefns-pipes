@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import format from 'date-fns/format';
 import { parsedOutput } from '../helper-functions';
-import { DatePipeManager } from '../providers/date-pipe-manager';
+import {DatePipeManager, DefaultLocaleFr} from '../providers/date-pipe-manager';
+import {format, parseISO} from "date-fns";
 
 // Date Pipe by Aaron Sterling
 
@@ -19,6 +19,9 @@ export class DatePipe implements PipeTransform {
   transform(value: string | number | Date, dateFormat?: string) {
     const formatToUse = this.manager.getDefaultFormat(dateFormat);
     // const options = { locale: this.manager.getDefaultLocale() };
-    return format(value, formatToUse);
+    if (typeof value === "string") {
+      value = parseISO(value)
+    }
+    return format(value, formatToUse, this.manager.getDefaultOption());
   }
 }

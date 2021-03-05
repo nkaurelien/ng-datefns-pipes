@@ -1,5 +1,6 @@
 import { Injectable, InjectionToken, Inject } from '@angular/core';
-import * as DefaultLocale from 'date-fns/locale/en';
+import {fr} from 'date-fns/locale';
+export const DefaultLocaleFr = fr;
 
 // DatePipe Manager by Aaron Sterling
 // injection token
@@ -18,7 +19,7 @@ export const DATE_PIPE_CONFIGURATION_TOKEN = new InjectionToken<DatePipeConfigur
 
 // default constants
 
-const INITIAL_DEFAULT_DATE_FORMAT = 'MMMM Do, YYYY';
+const INITIAL_DEFAULT_DATE_FORMAT = 'dd MMMM yyyy';
 const DEFAULT_DATE_DISTANCE_INCLUDES_SECONDS = false;
 const DEFAULT_AGO_PIPE_OPTIONS: AgoPipeOptions = {
     refreshRate: 15000,
@@ -73,6 +74,9 @@ export class DatePipeManager {
         } else {
             return this.dateFormat;
         }
+    }
+    getDefaultOption(): any {
+      return {locale: DefaultLocaleFr};
     }
 
     setDefaultFormat(newFormat: string) {
